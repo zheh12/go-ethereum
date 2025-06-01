@@ -22,6 +22,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 // simulatedBeaconAPI provides a RPC API for SimulatedBeacon.
@@ -59,6 +60,7 @@ func (a *simulatedBeaconAPI) loop() {
 	// based on messages over doCommit.
 	go func() {
 		for range doCommit {
+			log.Info("MyLog: SimulatedBeaconAPI: loop: committing new block")
 			a.sim.Commit()
 			a.sim.eth.TxPool().Sync()
 
@@ -86,6 +88,7 @@ func (a *simulatedBeaconAPI) loop() {
 			default:
 			}
 		case <-newTxs:
+			log.Info("MyLog: SimulatedBeaconAPI: loop: new transaction received, committing new block")
 			select {
 			case doCommit <- struct{}{}:
 			default:

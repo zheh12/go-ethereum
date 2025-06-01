@@ -337,6 +337,7 @@ func (p *TxPool) Add(txs []*types.Transaction, sync bool) []error {
 	//
 	// We also need to track how the transactions were split across the subpools,
 	// so we can piece back the returned errors into the original order.
+	log.Info("MyLog: Adding transactions to the pool", "count", len(txs))
 	txsets := make([][]*types.Transaction, len(p.subpools))
 	splits := make([]int, len(txs))
 

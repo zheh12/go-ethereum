@@ -277,6 +277,7 @@ func (miner *Miner) commitTransaction(env *environment, tx *types.Transaction) e
 }
 
 func (miner *Miner) commitBlobTransaction(env *environment, tx *types.Transaction) error {
+	log.Info("MyLog: Committing blob transaction", "hash", tx.Hash())
 	sc := tx.BlobTxSidecar()
 	if sc == nil {
 		panic("blob transaction without blobs in miner")
@@ -304,6 +305,7 @@ func (miner *Miner) commitBlobTransaction(env *environment, tx *types.Transactio
 
 // applyTransaction runs the transaction. If execution fails, state and gas pool are reverted.
 func (miner *Miner) applyTransaction(env *environment, tx *types.Transaction) (*types.Receipt, error) {
+	log.Info("MyLog: Applying transaction", "hash", tx.Hash(), "type", tx.Type(), "gas", tx.Gas(), "blobGas", tx.BlobGas())
 	var (
 		snap = env.state.Snapshot()
 		gp   = env.gasPool.Gas()

@@ -309,6 +309,7 @@ func (c *SimulatedBeacon) setCurrentState(headHash, finalizedHash common.Hash) {
 // Commit seals a block on demand.
 func (c *SimulatedBeacon) Commit() common.Hash {
 	withdrawals := c.withdrawals.pop(10)
+	log.Info("MyLog: SimulatedBeacon: committing new block", "withdrawalsCount", len(withdrawals))
 	if err := c.sealBlock(withdrawals, uint64(time.Now().Unix())); err != nil {
 		log.Warn("Error performing sealing work", "err", err)
 	}
