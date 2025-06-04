@@ -159,6 +159,7 @@ type StateDB struct {
 
 // New creates a new state from a given trie.
 func New(root common.Hash, db Database) (*StateDB, error) {
+	log.Info("MyLog: New StateDB called", "root", root.Hex())
 	reader, err := db.Reader(root)
 	if err != nil {
 		return nil, err
@@ -312,6 +313,7 @@ func (s *StateDB) Empty(addr common.Address) bool {
 
 // GetBalance retrieves the balance from the given address or 0 if object not found
 func (s *StateDB) GetBalance(addr common.Address) *uint256.Int {
+	log.Info("MyLog: GetBalance called", "address", addr.Hex())
 	stateObject := s.getStateObject(addr)
 	if stateObject != nil {
 		return stateObject.Balance()

@@ -92,6 +92,7 @@ type Database struct {
 // NewDatabase initializes the trie database with default settings, note
 // the legacy hash-based scheme is used by default.
 func NewDatabase(diskdb ethdb.Database, config *Config) *Database {
+	log.Info("MyLog: Initializing trie database")
 	// Sanitize the config and use the default one if it's not specified.
 	if config == nil {
 		config = HashDefaults
@@ -109,8 +110,10 @@ func NewDatabase(diskdb ethdb.Database, config *Config) *Database {
 		log.Crit("Both 'hash' and 'path' mode are configured")
 	}
 	if config.PathDB != nil {
+		log.Info(("MyLog: Using path-based trie database"), "isVerkle", config.IsVerkle)
 		db.backend = pathdb.New(diskdb, config.PathDB, config.IsVerkle)
 	} else {
+		log.Info(("MyLog: Using hash-based trie database"))
 		db.backend = hashdb.New(diskdb, config.HashDB)
 	}
 	return db

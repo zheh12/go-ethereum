@@ -92,6 +92,8 @@ func openKeyValueDatabase(o openOptions) (ethdb.Database, error) {
 // newLevelDBDatabase creates a persistent key-value database without a freezer
 // moving immutable chain segments into cold storage.
 func newLevelDBDatabase(file string, cache int, handles int, namespace string, readonly bool) (ethdb.Database, error) {
+	log.Info("MyLog: Opening LevelDB database", "file", file, "cache", cache, "handles", handles,
+		"namespace", namespace, "readonly", readonly)
 	db, err := leveldb.New(file, cache, handles, namespace, readonly)
 	if err != nil {
 		return nil, err

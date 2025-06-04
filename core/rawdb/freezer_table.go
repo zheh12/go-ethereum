@@ -133,6 +133,7 @@ func newFreezerTable(path, name string, config freezerTableConfig, readonly bool
 // non-existent. Both files are truncated to the shortest common length to ensure
 // they don't go out of sync.
 func newTable(path string, name string, readMeter, writeMeter *metrics.Meter, sizeGauge *metrics.Gauge, maxFilesize uint32, config freezerTableConfig, readonly bool) (*freezerTable, error) {
+	log.Info("MyLog: Opening freezer table", "path", path, "name", name, "readonly", readonly, "noSnappy", config.noSnappy)
 	// Ensure the containing directory exists and open the indexEntry file
 	if err := os.MkdirAll(path, 0755); err != nil {
 		return nil, err

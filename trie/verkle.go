@@ -25,6 +25,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/trie/trienode"
 	"github.com/ethereum/go-ethereum/trie/utils"
 	"github.com/ethereum/go-ethereum/triedb/database"
@@ -83,6 +84,7 @@ func (t *VerkleTrie) GetKey(key []byte) []byte {
 // account address. If the specified account is not in the verkle tree, nil will
 // be returned. If the tree is corrupted, an error will be returned.
 func (t *VerkleTrie) GetAccount(addr common.Address) (*types.StateAccount, error) {
+	log.Info("MyLog: VerkleTrie GetAccount", "addr", addr.Hex())
 	var (
 		acc    = &types.StateAccount{}
 		values [][]byte

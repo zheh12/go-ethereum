@@ -20,6 +20,8 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/ethereum/go-ethereum/log"
 )
 
 // copyFrom copies data from 'srcPath' at offset 'offset' into 'destPath'.
@@ -78,6 +80,7 @@ func copyFrom(srcPath, destPath string, offset uint64, before func(f *os.File) e
 
 // openFreezerFileForAppend opens a freezer table file and seeks to the end
 func openFreezerFileForAppend(filename string) (*os.File, error) {
+	log.Info("MyLog: openFreezerFileForAppend", "filename", filename)
 	// Open the file without the O_APPEND flag
 	// because it has differing behaviour during Truncate operations
 	// on different OS's
@@ -94,6 +97,7 @@ func openFreezerFileForAppend(filename string) (*os.File, error) {
 
 // openFreezerFileForReadOnly opens a freezer table file for read only access
 func openFreezerFileForReadOnly(filename string) (*os.File, error) {
+	log.Info("MyLog: openFreezerFileForReadOnly", "filename", filename)
 	return os.OpenFile(filename, os.O_RDONLY, 0644)
 }
 

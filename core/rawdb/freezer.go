@@ -79,6 +79,8 @@ type Freezer struct {
 // The 'tables' argument defines the data tables. If the value of a map
 // entry is true, snappy compression is disabled for the table.
 func NewFreezer(datadir string, namespace string, readonly bool, maxTableSize uint32, tables map[string]freezerTableConfig) (*Freezer, error) {
+	log.Info("MyLog: Creating ancient database", "path", datadir, "readonly", readonly, "namespace", namespace,
+		 "maxTableSize", maxTableSize)
 	// Create the initial freezer object
 	var (
 		readMeter  = metrics.NewRegisteredMeter(namespace+"ancient/read", nil)

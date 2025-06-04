@@ -26,6 +26,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/trie"
 	"github.com/ethereum/go-ethereum/trie/trienode"
 	"github.com/ethereum/go-ethereum/trie/utils"
@@ -221,8 +222,10 @@ func (db *CachingDB) ReaderWithCache(stateRoot common.Hash) (Reader, error) {
 // OpenTrie opens the main account trie at a specific root hash.
 func (db *CachingDB) OpenTrie(root common.Hash) (Trie, error) {
 	if db.triedb.IsVerkle() {
+		log.Info("MyLog: CachingDB: OpenTrie: opening verkle trie", "root", root.Hex())
 		return trie.NewVerkleTrie(root, db.triedb, db.pointCache)
 	}
+	log.Info("MyLog: CachingDB: OpenTrie: opening state trie", "root", root.Hex())
 	tr, err := trie.NewStateTrie(trie.StateTrieID(root), db.triedb)
 	if err != nil {
 		return nil, err
