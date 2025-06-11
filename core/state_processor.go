@@ -154,8 +154,10 @@ func ApplyTransactionWithEVM(msg *Message, gp *GasPool, statedb *state.StateDB, 
 	// Update the state with pending changes.
 	var root []byte
 	if evm.ChainConfig().IsByzantium(blockNumber) {
+		log.Info("MyLog: Finalising state changes after transaction execution", "blockNumber", blockNumber)
 		evm.StateDB.Finalise(true)
 	} else {
+		log.Info("MyLog: Finalising state changes after transaction execution (pre-Byzantium)", "blockNumber", blockNumber)
 		root = statedb.IntermediateRoot(evm.ChainConfig().IsEIP158(blockNumber)).Bytes()
 	}
 	*usedGas += result.UsedGas

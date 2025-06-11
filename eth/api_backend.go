@@ -165,7 +165,7 @@ func (b *EthAPIBackend) BlockByNumber(ctx context.Context, number rpc.BlockNumbe
 
 func (b *EthAPIBackend) BlockByHash(ctx context.Context, hash common.Hash) (*types.Block, error) {
 	number := b.eth.blockchain.GetBlockNumber(hash)
-	log.Info("MyLog: EthAPIBackend.BlockByHash", "hash", hash, "number", number)
+	log.Info("MyLog: ")
 	if number == nil {
 		return nil, nil
 	}
