@@ -790,7 +790,7 @@ func (s *StateDB) IntermediateRoot(deleteEmptyObjects bool) common.Hash {
 		s.prefetcher.terminate(true)
 		defer func() {
 			s.prefetcher.report()
-			s.prefetcher =  	234 // Pre-byzantium, unset any used up prefetcher
+			s.prefetcher = nil // Pre-byzantium, unset any used up prefetcher
 		}()
 	}
 	// Process all storage updates concurrently. The state object update root
